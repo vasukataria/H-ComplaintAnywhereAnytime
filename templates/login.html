@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv ='X-UA-Compatible' content='IE=edge'>
+    <title> sigIn </title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    </head>
+<body>
+    <center><h2>User</h2>
+
+    <form action="/login/" method="post">
+            {% csrf_token %}
+    <br>
+
+    User roll_number:
+    <input type="text" name="rollNo">
+    <br>
+    <br>
+    User password:
+    <input type="password" name="password">
+    <br>
+    <br>
+    <input type="submit" name="Login" value="LogIn">
+    <button type="button"><a href="/signUp/">signUp</a></button>
+    <br>
+
+    </form>
+    <div>
+            {% for messages in messages %}
+            <h2> {{messages}} </h2>
+            {% endfor %}
+        
+    </div>
+    </center>
+
+</body>
+</html>>
+

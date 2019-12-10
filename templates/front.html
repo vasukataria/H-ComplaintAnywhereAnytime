@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv ='X-UA-Compatible' content='IE=edge'>
+    <title>  </title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    </head>
+    <style>
+
+form {
+border: 2px solid #f1f1f1;
+        width: 50%;  
+}
+
+
+button {
+background-color: #1A5276;
+color: white;
+padding: 20px 20px;
+margin: 8px 0;
+border: none;
+cursor: pointer;
+width: 90%;
+}
+    .wrapper{
+         text-align: center;
+         }
+/* set a hover effect for the button*/
+
+button:hover {
+opacity: 0.8;
+}
+
+
+/*set styles for span and cancel button on small screens*/
+
+@media screen and (max-width: 300px) {
+span.psw {
+display: block;
+float: none;
+}
+.cancelbtn {
+width: 100%;
+}
+}
+</style>
+
+<body >
+
+<center><h2>Main Page</h2></center>
+<!--Step 1 : Adding HTML-->
+    <div align =center>
+<center>
+    <form action="/login/" method="post">
+    {% csrf_token %}
+
+
+<div class="container">
+
+            <br>
+            <button type="button"><a style="
+                color: white;
+                text-decoration: unset;
+            " href="/login/">User</a></button>
+            <br>
+            <br>
+            <button type="button"><a style="
+                color: white;
+                text-decoration: unset;" href="/admin/">Admin</a></button>
+
+</form> </center></div>
+
+</body>
+
+</html> 

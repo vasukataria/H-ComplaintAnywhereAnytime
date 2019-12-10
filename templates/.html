@@ -1,0 +1,76 @@
+{% for comp in complaints %}
+        <a href={{comp.name}}>
+            <input type="button" value={{comp.name}}><br><br>
+        </a>
+    {% endfor %}
+
+
+
+    #<input type="button" value="Back to Service" >
+
+
+
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv ='X-UA-Compatible' content='IE=edge'>
+      <title> signUp </title>
+      <meta name='viewport' content='width=device-width, initial-scale=1'>
+      <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+      <script src='main.js'></script>
+      </head>
+    <body> 
+    
+      <h2>Create a new account</h2>
+      {% if error %}
+      <h2>{{error}}</h2>
+      {% endif %}
+    
+      <form action="/signUp/" method="post">
+          {% csrf_token %}
+      <input type="text"  name="first_name" placeholder="First_name">
+      <input type="text"  name="last_name" placeholder="Last_name">
+      <br>
+      <br>
+      <input type="text" name="phoneNo" placeholder="Phone Number"><br><br>
+      <input type="email" name="email" placeholder="Email"><br><br>
+      <input type="text" name="rollNo" placeholder="Roll Number"><br><br>
+    
+    
+      <input type="password" name="password1" placeholder="Password"><br><br>
+      <input type="password" name="password2" placeholder="Confirm password"><br><br>
+      
+      <p>Birthday</p>
+      <input type="date" name="bday"><br><br>
+      
+      <input type="radio" name="gender" value="male" checked> Male
+      <input type="radio" name="gender" value="female"> Female
+      <input type="radio" name="gender" value="other"> Other<br><br>
+      Hostel Prefrences:<select>
+      <option value="Select">Select....</option>
+      <option value="N">L</option></select><br><br>
+      Floor & Room
+      <select>
+      <option value="Select">Select....</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      </select>
+      <input type="number" name="quantity" min="10" max="61"><br><br>
+      <input type="submit" name="login" value="login">
+      
+      </form> 
+    
+      <div>
+        {% for messages in messages %}
+        <h2> {{messages}} </h2>
+        {% endfor %}
+    
+      </div>
+    
+    </body>
+    </html>
+    
+    
