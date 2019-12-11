@@ -1,24 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv ='X-UA-Compatible' content='IE=edge'>
-  <title> Complaints </title>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-  <script src='main.js'></script>
-  </head>
-<body>
-<center><h2>Complaints</h2></center>
-<center>
+{% extends 'base.html' %}
 
-        <!--<button type="button"><a href="/Electricity/">Electricity</a></button><br><br>-->
-        <!--<button type="button"><a href="/Carpanter/">Carpanter</a></button><br><br>-->
-        <!--<button type="button"><a href="/Plumber/">Plumber</a></button><br><br>-->
-        <!--<button type="button"><a href="/Room_cleaning/">Room_cleaning</a></button><br><br>-->
-        <!--<button type="button"><a href="/Air_conditioner/">Air_conditioner</a></button><br><br>-->
-        <!--<button type="button"><a href="/logout/">logout</a></button><br><br>-->
-        <!--<button type="button"><a href="">history</a></button><br><br>-->
+{% block content %}
+
+<center>
+    <h2>Complaints</h2>
+
     {% if count > 0 %}
     <table>
         <tr>
@@ -43,5 +29,4 @@
     {% endif %}
 </center>
 
-</body>
-</html>
+{% endblock content %}

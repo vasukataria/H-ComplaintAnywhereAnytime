@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Complaint Id {{complaint.id}}</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block content %}
 <table>
     <tr>
         <td>Id</td>
@@ -20,6 +15,4 @@
         <td>{{complaint.desc}}</td>
     </tr>
 </table>
-
-</body>
-</html>
+{% endblock content %}

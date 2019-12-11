@@ -236,3 +236,13 @@ class ComplaintsDetailView(View):
         return render(request, 'complaint_detail.html', context={'complaint': complaint})
 
 
+class MyComplaints(View):
+    def get(self, request):
+        complaints = Complaints.objects.all().order_by('-created_at')
+        count = Complaints.objects.count()
+        context = {
+            'complaints': complaints,
+            'count':count
+        }
+
+        return render(request, 'list.html', context)
