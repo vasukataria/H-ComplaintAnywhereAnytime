@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title> Electricity </title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+
+<center><h2>New Complaint</h2></center>
+
+<form action="/complaints/" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+
+    <label for="complaint-type-select">Complaint Type:</label>
+    <select name="complaint_type" id="complaint-type-select">
+    {% for complaint_type in complaint_types %}
+        <option value="{{complaint_type.0}}">{{complaint_type.1}}</option>
+    {% endfor %}
+    </select>
+    <br />
+
+    <label for="complaint-desc">Complaint Description:</label>
+    <textarea name="complaint_desc" id="complaint-desc" rows="4" cols="50"> </textarea>
+    <br><br>
+
+    <label for="complaint-image">Picture:</label>
+    <input type="file" name="complaint-image" />
+    <input type="button" value="browser" />
+    <br><br>
+
+    <input type="submit">
+    <button type="button"><a href="{% url 'complaint-list' %}">Back to Service</a></button>
+    <br><br>
+</form>
+</body>
+</html>

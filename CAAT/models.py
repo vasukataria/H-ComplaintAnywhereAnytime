@@ -26,7 +26,7 @@ class Complaints(models.Model):
     desc = models.TextField()
 
     # Filepath to images uploaded to the server
-    image = models.ImageField(upload_to='pics')
+    image = models.ImageField(upload_to='pics', null=True)
 
     # Foreign key relationship with the user
     user = models.ForeignKey(User, on_delete=models.CASCADE)

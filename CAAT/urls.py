@@ -24,6 +24,9 @@ url_patterns = [
     # POST /complaints/ - Create new complaint
     re_path(r'^complaints/$', views.ComplaintListCreateView.as_view(), name='complaint-list'),
 
+    # Form to create new complaint
+    re_path(r'^complaints/new/$', views.NewComplaint.as_view(), name='new-complaint'),
+
     # GET /complaints/{id} - Get single complaint
     # PUT /complaints/{id} - Update single complaint
     # DELETE /complaints/{id} - Delete single complaint

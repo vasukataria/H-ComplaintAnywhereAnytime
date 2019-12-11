@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.urls import reverse
 from django.views import View
 
 from .models import Complaints, Profile
@@ -91,8 +92,8 @@ def list(request):
        # Complaints.objects.create(user=user,type= )
 
         complaint_type = request.POST['customer-type']
-        Correction: 'customer-type' > 'complaint-type'
-        Complaint.objects.create(user=user, type=complaint_type)
+        # Correction: 'customer-type' > 'complaint-type'
+        # Complaint.objects.create(user=user, type=complaint_type)
 
         complaints = Complaints.objects.filter(
             desc = desc,
@@ -103,91 +104,97 @@ def list(request):
         return render(request,'list.html')#,{'complaints': complaints})
 
 
-def Electricity(request):
-    if request.method =='POST':
-        desc = request.POST['desc']
-        image = request.POST['image']
-        user = request.user
-        complaint_type = request.POST['customer-type']
-        Correction: 'customer-type' > 'complaint-type'
-        Complaint.objects.create(user=user, type=Electricity)
-        complaints = Complaints.objects.filter(
-            desc = desc,
-            image = image,
-            user = user,
-
-        )
-    return render (request,"Electricity.html")
-def Plumber(request):
-    if request.method =='POST':
-        desc = request.POST['desc']
-        image = request.POST['image']
-        user = request.user
-        complaint_type = request.POST['customer-type']
-        Correction: 'customer-type' > 'complaint-type'
-        Complaint.objects.create(user=user, type=Plumber)
-        complaints = Complaints.objects.filter(
-            desc = desc,
-            image = image,
-            user = user,
-
-        )
-        return render (request,"Plumber.html")
-def Air_conditioner(request):
-    if request.method =='POST':
-        desc = request.POST['desc']
-        image = request.POST['image']
-        user = request.user
-        complaint_type = request.POST['customer-type']
-        Correction: 'customer-type' > 'complaint-type'
-        Complaint.objects.create(user=user, type=Air_conditioner)
-        complaints = Complaints.objects.filter(
-            desc = desc,
-            image = image,
-            user = user,
-
-        )
-        return render (request,"Air_conditioner.html")
-def Room_cleaning(request):
-    if request.method =='POST':
-        desc = request.POST['desc']
-        image = request.POST['image']
-        user = request.user
-        complaint_type = request.POST['customer-type']
-        Correction: 'customer-type' > 'complaint-type'
-        Complaint.objects.create(user=user, type=Room_cleaning)
-        complaints = Complaints.objects.filter(
-            desc = desc,
-            image = image,
-            user = user,
-
-        )
-        return render (request,"Room_cleaning.html")
-def Carpanter(request):
-    if request.method =='POST':
-        desc = request.POST['desc']
-        image = request.POST['image']
-        user = request.user
-        complaint_type = request.POST['customer-type']
-        Correction: 'customer-type' > 'complaint-type'
-        Complaint.objects.create(user=user, type=Carpanter)
-        complaints = Complaints.objects.filter(
-            desc = desc,
-            image = image,
-            user = user,
-
-        )
-        return render (request,"Carpanter.html")
+# def Electricity(request):
+#     if request.method =='POST':
+#         desc = request.POST['desc']
+#         image = request.POST['image']
+#         user = request.user
+#         complaint_type = request.POST['customer-type']
+#         Correction: 'customer-type' > 'complaint-type'
+#         Complaint.objects.create(user=user, type=Electricity)
+#         complaints = Complaints.objects.filter(
+#             desc = desc,
+#             image = image,
+#             user = user,
+#
+#         )
+#     return render (request,"Electricity.html")
+# def Plumber(request):
+#     if request.method =='POST':
+#         desc = request.POST['desc']
+#         image = request.POST['image']
+#         user = request.user
+#         complaint_type = request.POST['customer-type']
+#         Correction: 'customer-type' > 'complaint-type'
+#         Complaint.objects.create(user=user, type=Plumber)
+#         complaints = Complaints.objects.filter(
+#             desc = desc,
+#             image = image,
+#             user = user,
+#
+#         )
+#         return render (request,"Plumber.html")
+# def Air_conditioner(request):
+#     if request.method =='POST':
+#         desc = request.POST['desc']
+#         image = request.POST['image']
+#         user = request.user
+#         complaint_type = request.POST['customer-type']
+#         Correction: 'customer-type' > 'complaint-type'
+#         Complaint.objects.create(user=user, type=Air_conditioner)
+#         complaints = Complaints.objects.filter(
+#             desc = desc,
+#             image = image,
+#             user = user,
+#
+#         )
+#         return render (request,"Air_conditioner.html")
+# def Room_cleaning(request):
+#     if request.method =='POST':
+#         desc = request.POST['desc']
+#         image = request.POST['image']
+#         user = request.user
+#         complaint_type = request.POST['customer-type']
+#         Correction: 'customer-type' > 'complaint-type'
+#         Complaint.objects.create(user=user, type=Room_cleaning)
+#         complaints = Complaints.objects.filter(
+#             desc = desc,
+#             image = image,
+#             user = user,
+#
+#         )
+#         return render (request,"Room_cleaning.html")
+# def Carpanter(request):
+#     if request.method =='POST':
+#         desc = request.POST['desc']
+#         image = request.POST['image']
+#         user = request.user
+#         complaint_type = request.POST['customer-type']
+#         Correction: 'customer-type' > 'complaint-type'
+#         Complaint.objects.create(user=user, type=Carpanter)
+#         complaints = Complaints.objects.filter(
+#             desc = desc,
+#             image = image,
+#             user = user,
+#
+#         )
+#         return render (request,"Carpanter.html")
 
 def logout(request):
     auth.logout(request)
     return redirect('/')
 
+class NewComplaint(View):
+    def get(self, request):
+        context = {
+            'complaint_types': Complaints.COMPLAINTS_TYPES
+        }
+        return render(request, 'create_complaint.html', context=context)
 
 class ComplaintListCreateView(View):
 
-    def get(self, request, *args, **kwargs):
-        print("GET /complaints/")
+    def get(self, request):
+        print("Get all complaints from database")
 
         # Get all complaints. Recent complaints should be visible first
         complaints = Complaints.objects.all().order_by('-created_at')
@@ -199,9 +206,33 @@ class ComplaintListCreateView(View):
 
         return render(request, 'list.html', context)
 
+    def post(self, request):
+        print("Trying to create a new complaint")
+        complaint_data = request.POST
+
+        # TODO: We must validate the data we received in the request body(request.POST).
+        # Image uploading in Django:
+        # https://simpleisbetterthancomplex.com/tutorial/2016/08/01/how-to-upload-files-with-django.html
+
+        new_complaint = Complaints.objects.create(
+            type=complaint_data.get('complaint_type'),
+            desc=complaint_data.get('complaint_desc'),
+            # Uploaded files are available via request.FILES
+            image=request.FILES.get('complaint-image'),
+            # Logged in user is available via request.user
+            user=User.objects.first() #request.user
+        )
+
+        print("Complaint successfully created. id: {}".format(new_complaint.id))
+        return redirect("/complaints/{}".format(new_complaint.id))
+        # return redirect(reverse('complaint-detail'), kwargs={'pk': new_complaint.id})
 
 
 class ComplaintsDetailView(View):
-    pass
+    def get(self, request, pk=None):
+        print("Querying a single complaint with id {} from database".format(pk))
+        # Query complaint from database. Raise 404 if complaint is not found.
+        complaint = get_object_or_404(Complaints, pk=pk)
+        return render(request, 'complaint_detail.html', context={'complaint': complaint})
 
 

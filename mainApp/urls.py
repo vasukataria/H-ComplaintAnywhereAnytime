@@ -14,10 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
-from django.conf import settings
-from django.conf.urls.static import static
+from django.urls import path, include
 from django.utils.translation import ugettext_lazy as _
+
 from CAAT.urls import url_patterns
 
 # Change admin site title
