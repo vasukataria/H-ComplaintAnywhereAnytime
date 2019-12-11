@@ -1,0 +1,5 @@
+.idea
+.coverage
+*.pyc
+*.pyo
+/__pycache__/
