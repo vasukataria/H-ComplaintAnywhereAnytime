@@ -1,16 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.views import View
+
 from .models import Complaints, Profile
 from django.contrib import auth
 from django.contrib.auth.models import User
-# Create your views here.
+
+
 def front(request):
     return render (request,"front.html")
+
+
 def login(request):
     if request.method =='POST':
         #import ipdb; ipdb.set_trace()
         rollNo = request.POST['rollNo']
-        #rollNo = request.POST['rollNo'] 
+        #rollNo = request.POST['rollNo']
         password = request.POST['password']
 
         #import ipdb; ipdb.set_trace()
@@ -23,8 +28,10 @@ def login(request):
             messages.info(request,'invalid')
             return redirect("login")
 
-    else: 
+    else:
         return render(request,"login.html")
+
+
 def signUp(request):
     context = {}
     if request.method =='POST':
@@ -44,16 +51,16 @@ def signUp(request):
         #gender = request.POST['gender']
         # room
 
-        #check pass 
+        #check pass
 
         if password1==password2:
             if User.objects.filter(username=rollNo).exists():
                 messages.info(request,'username taken')
                 return redirect('signUp')
-            elif User.objects.filter(email=email).exists(): 
-                messages.info(request,'email taken') 
+            elif User.objects.filter(email=email).exists():
+                messages.info(request,'email taken')
                 return redirect('signUp')
-            else:      
+            else:
                 print('trying to create user')
                 user = User.objects.create_user(
                     username=rollNo,
@@ -70,6 +77,8 @@ def signUp(request):
         else:
             context['error'] = 'Password are not equal'
     return render(request,"signUp.html",context)
+
+
 def list(request):
     if request.method == 'GET':
         complaints = Complaints.objects.all()
@@ -84,7 +93,7 @@ def list(request):
         complaint_type = request.POST['customer-type']
         Correction: 'customer-type' > 'complaint-type'
         Complaint.objects.create(user=user, type=complaint_type)
-       
+
         complaints = Complaints.objects.filter(
             desc = desc,
             image = image,
@@ -92,6 +101,8 @@ def list(request):
 
         )
         return render(request,'list.html')#,{'complaints': complaints})
+
+
 def Electricity(request):
     if request.method =='POST':
         desc = request.POST['desc']
@@ -106,7 +117,7 @@ def Electricity(request):
             user = user,
 
         )
-        return render (request,"Electricity.html")
+    return render (request,"Electricity.html")
 def Plumber(request):
     if request.method =='POST':
         desc = request.POST['desc']
@@ -173,6 +184,24 @@ def logout(request):
     return redirect('/')
 
 
+class ComplaintListCreateView(View):
 
+    def get(self, request, *args, **kwargs):
+        print("GET /complaints/")
+
+        # Get all complaints. Recent complaints should be visible first
+        complaints = Complaints.objects.all().order_by('-created_at')
+        count = Complaints.objects.count()
+        context = {
+            'complaints': complaints,
+            'count':count
+        }
+
+        return render(request, 'list.html', context)
+
+
+
+class ComplaintsDetailView(View):
+    pass
 
 

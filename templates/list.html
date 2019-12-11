@@ -8,19 +8,40 @@
   <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
   <script src='main.js'></script>
   </head>
-<body> 
+<body>
 <center><h2>Complaints</h2></center>
 <center>
-       
-        <button type="button"><a href="/Electricity/">Electricity</a></button><br><br>
-        <button type="button"><a href="/Carpanter/">Carpanter</a></button><br><br>
-        <button type="button"><a href="/Plumber/">Plumber</a></button><br><br>
-        <button type="button"><a href="/Room_cleaning/">Room_cleaning</a></button><br><br>
-        <button type="button"><a href="/Air_conditioner/">Air_conditioner</a></button><br><br>
-        <button type="button"><a href="/logout/">logout</a></button><br><br>
-        <button type="button"><a href="">history</a></button><br><br>
+
+        <!--<button type="button"><a href="/Electricity/">Electricity</a></button><br><br>-->
+        <!--<button type="button"><a href="/Carpanter/">Carpanter</a></button><br><br>-->
+        <!--<button type="button"><a href="/Plumber/">Plumber</a></button><br><br>-->
+        <!--<button type="button"><a href="/Room_cleaning/">Room_cleaning</a></button><br><br>-->
+        <!--<button type="button"><a href="/Air_conditioner/">Air_conditioner</a></button><br><br>-->
+        <!--<button type="button"><a href="/logout/">logout</a></button><br><br>-->
+        <!--<button type="button"><a href="">history</a></button><br><br>-->
+    {% if count > 0 %}
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Type</th>
+            <th>Created by</th>
+            <th>Crated On</th>
+            <th>Status</th>
+        </tr>
+        {% for complaint in complaints %}
+        <tr>
+            <td><a href="{% url 'complaint-detail' complaint.id %}">{{complaint.id}}</a></td>
+            <td>{{ complaint.type }}</td>
+            <td>{{ complaint.user.first_name }}</td>
+            <td>{{ complaint.created_at }}</td>
+            <td>{{ complaint.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <b>No complaints yet!</b>
+    {% endif %}
 </center>
-</form> 
 
 </body>
 </html>

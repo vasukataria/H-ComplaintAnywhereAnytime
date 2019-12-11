@@ -18,12 +18,13 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.utils.translation import ugettext_lazy as _
+from CAAT.urls import url_patterns
 
 # Change admin site title
 admin.site.site_header = _("CAA Administration")
 admin.site.site_title = _("CAA Admin")
 
 urlpatterns = [
-    path("",include('CAAT.urls')),
+    path("",include(url_patterns)),
     path('admin/', admin.site.urls),
 ]#+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
