@@ -17,8 +17,9 @@ from . import views
 url_patterns = [
     re_path('^$', views.front, name='front'),
     re_path(r'^signUp/$', views.signUp, name='signUp'),
-    re_path(r'^login/$', views.login, name='login'),
-    re_path(r'^logout/$', views.logout, name='logout'),
+    re_path(r'^home/$', views.Home.as_view(), name='home'),
+    # re_path(r'^login/$', views.login, name='login'),
+    # re_path(r'^logout/$', views.logout, name='logout'),
 
     # GET /complaints/ - Get all complaints
     # POST /complaints/ - Create new complaint

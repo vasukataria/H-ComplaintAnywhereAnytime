@@ -26,4 +26,5 @@ admin.site.site_title = _("CAA Admin")
 urlpatterns = [
     path("",include(url_patterns)),
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]#+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -136,3 +136,5 @@ MEDIA_URL ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 ADMIN_SITE_TITLE = "dsgd"
+# LOGIN_URL='/login/'
+LOGIN_REDIRECT_URL = '/home/'
