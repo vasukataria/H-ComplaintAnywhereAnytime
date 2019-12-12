@@ -2,9 +2,7 @@
 
 {% block content %}
 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <!------ Include the above in your HEAD tag ---------->
 <style>
         .custab{
@@ -21,6 +19,7 @@
         </style>
 <div class="container">
     <div>
+    <a href="/complaints/new/" class="btn btn-primary btn-xs pull-right" style="margin-bottom: 10px;height: 31px;width: 200px;font-size: 15px;"><b>+</b> Create new complaint</a>
     {% if count > 0 %}
         <table class="table table-striped custab">
         <thead>
