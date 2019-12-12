@@ -2,31 +2,49 @@
 
 {% block content %}
 
-<center>
-    <h2>Complaints</h2>
-
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<style>
+        .custab{
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5% 0;
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+    }
+.custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+    }
+        </style>
+<div class="container">
+    <div>
     {% if count > 0 %}
-    <table>
-        <tr>
-            <th>Id</th>
-            <th>Type</th>
-            <th>Created by</th>
-            <th>Crated On</th>
-            <th>Status</th>
-        </tr>
+        <table class="table table-striped custab">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Created by</th>
+                <th>Crated On</th>
+                <th>Status</th>
+            </tr>
+        </thead>
         {% for complaint in complaints %}
         <tr>
             <td><a href="{% url 'complaint-detail' complaint.id %}">{{complaint.id}}</a></td>
             <td>{{ complaint.type }}</td>
-            <td>{{ complaint.user.first_name }}</td>
+            <td>{{ complaint.user.username }}</td>
             <td>{{ complaint.created_at }}</td>
             <td>{{ complaint.status }}</td>
         </tr>
         {% endfor %}
-    </table>
+        </table>
     {% else %}
         <b>No complaints yet!</b>
     {% endif %}
-</center>
-
+    </div>
+</div>
 {% endblock content %}
