@@ -1,18 +1,55 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<table>
-    <tr>
-        <td>Id</td>
-        <td>{{complaint.id}}</td>
-    </tr>
-    <tr>
-        <td>Type</td>
-        <td>{{complaint.type}}</td>
-    </tr>
-    <tr>
-        <td>Description</td>
-        <td>{{complaint.desc}}</td>
-    </tr>
-</table>
+<style>
+        .custab{
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5% 0;
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+    }
+.custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+    }
+        </style>
+<div class="container" >
+    <div>
+            <div class="heading">
+                    <legend>
+                    <h3 class="form-heading" style="padding-bottom:5px">Complaint details</h3>
+                </legend>
+                </div>
+<table class="table table-striped custab" style="width:40%;margin-top: 40px;margin-bottom: 25px;">
+       
+        <tr>
+                <td style="font-weight: 500;text-align: right;"> Id :  </td>
+                <td>{{complaint.id}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: 500;text-align: right;  ">Type :  </td>
+                <td>{{complaint.type}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: 500;text-align: right;">Description :  </td>
+                <td>{{complaint.desc}}</td>
+            </tr>
+            <tr>
+                    <td style="font-weight: 500;text-align: right;">Created on :  </td>
+                    <td>{{complaint.created_at}}</td>
+            </tr>
+            <tr>
+                    <td style="font-weight: 500;text-align: right;">Created by :  </td>
+                    <td>{{complaint.user.username}}</td>
+            </tr>
+            <tr>
+                    <td style="font-weight: 500;text-align: right;">Status :  </td>
+                    <td>{{complaint.status}}</td>
+         </tr>
+    
+        </table>
+        <a href="{% url 'complaint-list' %}" class="btn btn-success" >Back to service</a>
+    </div>
+    </div>
 {% endblock content %}

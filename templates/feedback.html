@@ -2,9 +2,8 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
+        Feedback by logged in user
 {% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
+    Feedback by anonymous (logged out) user
 {% endif %}
 {% endblock %}

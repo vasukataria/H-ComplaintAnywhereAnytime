@@ -1,40 +1,66 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title> Electricity </title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
-</head>
-<body>
 
-<center><h2>New Complaint</h2></center>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+{% extends 'base.html' %}
+
+{% block content %}
 
 <form action="/complaints/" method="post" enctype="multipart/form-data">
     {%csrf_token%}
+<!------ Include the above in your HEAD tag ---------->
 
-    <label for="complaint-type-select">Complaint Type:</label>
-    <select name="complaint_type" id="complaint-type-select">
-    {% for complaint_type in complaint_types %}
-        <option value="{{complaint_type.0}}">{{complaint_type.1}}</option>
-    {% endfor %}
-    </select>
-    <br />
+<div class="container">
+    <div class="row-fluid">
+            <div class="span6">
+                <div class="area">
+                    <form class="form-horizontal">
+                        <div class="heading">
+                            <legend>
+                            <h3 class="form-heading" style="padding-bottom:5px">Create new complaint</h3>
+                        </legend>
+                        </div>
 
-    <label for="complaint-desc">Complaint Description:</label>
-    <textarea name="complaint_desc" id="complaint-desc" rows="4" cols="50"> </textarea>
-    <br><br>
+                        <div class="control-group"  style="padding-top:10px">
+                            <label class="control-label" for=
+                            "inputCompanyName">Complaint type : </label>
 
-    <label for="complaint-image">Picture:</label>
-    <input type="file" name="complaint-image" />
-    <input type="button" value="browser" />
-    <br><br>
+                            <div class="controls">
+                                    <select name="complaint_type" id="complaint-type-select">
+                                            {% for complaint_type in complaint_types %}
+                                                <option value="{{complaint_type.0}}">{{complaint_type.1}}</option>
+                                            {% endfor %}
+                                            </select>
+                            </div>
+                        </div>
 
-    <input type="submit">
-    <button type="button"><a href="{% url 'complaint-list' %}">Back to Service</a></button>
-    <br><br>
+                        <div class="control-group">
+                            <label class="control-label" for="inputFirst">Complaint description : </label>
+
+                            <div class="controls">
+                                    <textarea name="complaint_desc" id="complaint-desc" rows="10" cols="80" style="width: 100%;"> </textarea>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="inputLast">Picture : </label>
+
+                            <div class="controls">
+                                    <input type="file" name="complaint-image" />
+                                    
+                            </div>
+                            <div class="controls" style="padding-top: 15px;">
+                                   
+                                    <input type="submit" class="btn btn-success">
+   <a href="{% url 'complaint-list' %}" class="btn btn-success" >Back to service</a>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
 </form>
-</body>
-</html>
+{% endblock %}

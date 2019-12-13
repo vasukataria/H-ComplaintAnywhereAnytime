@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.urls import reverse
@@ -12,25 +14,25 @@ def front(request):
     return render (request,"front.html")
 
 
-def login(request):
-    if request.method =='POST':
-        #import ipdb; ipdb.set_trace()
-        rollNo = request.POST['rollNo']
-        #rollNo = request.POST['rollNo']
-        password = request.POST['password']
-
-        #import ipdb; ipdb.set_trace()
-        user = auth.authenticate(username=rollNo,password=password)
-
-        if user is not None:
-            auth.login(request, user)
-            return redirect("complaints")
-        else:
-            messages.info(request,'invalid')
-            return redirect("login")
-
-    else:
-        return render(request,"login.html")
+# def login(request):
+#     if request.method =='POST':
+#         #import ipdb; ipdb.set_trace()
+#         rollNo = request.POST['rollNo']
+#         #rollNo = request.POST['rollNo']
+#         password = request.POST['password']
+#
+#         #import ipdb; ipdb.set_trace()
+#         user = auth.authenticate(username=rollNo,password=password)
+#
+#         if user is not None:
+#             auth.login(request, user)
+#             return redirect("complaints")
+#         else:
+#             messages.info(request,'invalid')
+#             return redirect("login")
+#
+#     else:
+#         return render(request,"login.html")
 
 
 def signUp(request):
@@ -80,6 +82,7 @@ def signUp(request):
     return render(request,"signUp.html",context)
 
 
+@login_required()
 def list(request):
     if request.method == 'GET':
         complaints = Complaints.objects.all()
@@ -184,14 +187,14 @@ def logout(request):
     auth.logout(request)
     return redirect('/')
 
-class NewComplaint(View):
+class NewComplaint(LoginRequiredMixin, View):
     def get(self, request):
         context = {
             'complaint_types': Complaints.COMPLAINTS_TYPES
         }
         return render(request, 'create_complaint.html', context=context)
 
-class ComplaintListCreateView(View):
+class ComplaintListCreateView(LoginRequiredMixin, View):
 
     def get(self, request):
         print("Get all complaints from database")
@@ -228,7 +231,7 @@ class ComplaintListCreateView(View):
         # return redirect(reverse('complaint-detail'), kwargs={'pk': new_complaint.id})
 
 
-class ComplaintsDetailView(View):
+class ComplaintsDetailView(LoginRequiredMixin, View):
     def get(self, request, pk=None):
         print("Querying a single complaint with id {} from database".format(pk))
         # Query complaint from database. Raise 404 if complaint is not found.
@@ -236,13 +239,50 @@ class ComplaintsDetailView(View):
         return render(request, 'complaint_detail.html', context={'complaint': complaint})
 
 
-class MyComplaints(View):
+class MyComplaints(LoginRequiredMixin, View):
     def get(self, request):
-        complaints = Complaints.objects.all().order_by('-created_at')
+        complaints = Complaints.objects.filter(user=request.user).order_by('-created_at')
         count = Complaints.objects.count()
         context = {
             'complaints': complaints,
             'count':count
         }
 
+<<<<<<< HEAD
         return render(request, 'list.html', context)
+=======
+        return render(request, 'list.html', context)
+
+
+class WorkerHome(LoginRequiredMixin, View):
+    def get(self, request):
+        complaints = Complaints.objects.filter(type=request.user).order_by('-created_at')
+        count = Complaints.objects.count()
+        context = {
+            'complaints': complaints,
+            'count':count
+        }
+
+        return render(request, 'worker-home.html', context)
+
+
+class Home(LoginRequiredMixin, View):
+    def get(self, request):
+        if request.user.profile.type == 'STUDENT':
+            # Get complaints submitted by user
+            complaints = Complaints.objects.filter(user=request.user).order_by('-created_at')
+        else:
+            # Get compalints registered against the user (Electrician, Carpenter etc.)
+            complaints = Complaints.objects.filter(type=request.user.profile.can_workon()).order_by('-created_at')
+
+        context = {
+            'complaints': complaints,
+            'count': complaints.count(),
+            'user_type': request.user.profile.type
+        }
+
+        return render(request, 'home.html', context)
+
+
+
+>>>>>>> 8783df7ddd0719fc98c86d54004252a08dfb9c37

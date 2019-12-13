@@ -29,11 +29,13 @@
 </head>
 
 <body>
-    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+    <div class="page-wrapper p-t-45 p-b-50">
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
                 <div class="card-heading">
+                        <div><a  href="/login/" style=" float: right;padding-right: 10px;color:white">Login</a></div>
                     <h2 class="title">Create a New Account </h2>
+                    
 			{% if error %}
   			<h2>{{error}}</h2>
   			{% endif %}
@@ -64,7 +66,12 @@
                             <div class="name">Roll No.</div>
                             <div class="value">
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input class="input--style-5" type="text" name="rollNo">
+=======
+                                    <input class="input--style-5" type="text" name="rollno">
+                                    <label class="label--desc">Roll No.</label>
+>>>>>>> 8783df7ddd0719fc98c86d54004252a08dfb9c37
                                 </div>
                             </div>
                         </div>
@@ -73,13 +80,14 @@
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-5" type="email" name="email">
+                                    <label class="label--desc">Email</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row m-b-55">
                             <div class="name">Phone Number</div>
                           
-                                    <div class="col-9">
+                                    <div class="">
                                         <div class="input-group-desc">
                                             <input class="input--style-5" type="text" name="phoneNo">
                                             <label class="label--desc">Phone Number</label>
@@ -91,7 +99,7 @@
                      <div class="form-row m-b-55">
                             <div class="name">Password</div>
                           
-                                    <div class="col-9">
+                                    <div class="">
                                         <div class="input-group-desc">
                                             <input class="input--style-5" type="text" name="password">
                                             <label class="label--desc">Password</label>
@@ -105,7 +113,7 @@
                        <div class="form-row m-b-55">
                             <div class="name">Confirm password</div>
                           
-                                    <div class="col-9">
+                                    <div class="">
                                         <div class="input-group-desc">
                                             <input class="input--style-5" type="text" name="Cpassword">
                                             <label class="label--desc">Confirm password</label>
@@ -121,13 +129,12 @@
                             <div class="name">Hostel</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="subject">
+                                    <!-- <div class=""> -->
+                                        <select name="subject" style="width: 211px;height: 30px;">
                                             <option disabled="disabled" selected="selected">Choose option</option>
                                             <option>L</option>
                                         </select>
-                                        <div class="select-dropdown"></div>
-                                    </div>
+                                    <!-- </div> -->
                                 </div>
                             </div>
                         </div>
@@ -138,15 +145,14 @@
                             <div class="name">Floor</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="subject">
+                                    <!-- <div class="rs-select2 js-select-simple select--no-search"> -->
+                                        <select name="subject" style="width: 211px;height: 30px;">
                                             <option disabled="disabled" selected="selected">Choose option</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             </select>
-                                            <div class="select-dropdown"></div>
-                                    </div>
+                                    <!-- </div> -->
                                 </div>
                             </div>
                         </div>
@@ -156,7 +162,7 @@
                         <div class="form-row m-b-55">
                             <div class="name">Room Number</div>
                           
-                                    <div class="col-9">
+                                    <div class="">
                                         <div class="input-group-desc">
                                             <input class="input--style-5" type="text" name="roomno">
                                             <label class="label--desc">Room number</label>
@@ -167,7 +173,9 @@
                         </div>
 
                         <div>
-                           <center> <button class="btn btn--radius-2 btn--red" type="submit">login</button></center>
+                            <button class="btn btn--radius-2 btn--red" type="submit">Sign up</button>
+                            <br/>
+                            
 				{% for messages in messages %}
     				<h2> {{messages}} </h2>
     				{% endfor %}

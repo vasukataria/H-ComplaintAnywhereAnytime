@@ -8,7 +8,7 @@ class Complaints(models.Model):
     COMPLAINTS_TYPES = (
         ('ELECTRICITY', 'Electricity'),
         ('PLUMBER','Plumber'),
-        ('CARPANTER','Carpanter'),
+        ('CARPENTER','Carpenter'),
         ('AIR_CONDITIONER', 'Air_conditioner'),
         ('ROOM_CLEANING', 'Room_cleaning')
     )
@@ -42,7 +42,6 @@ class Complaints(models.Model):
         return "Complaint No. {} ({})".format(self.id, self.type)
 
 
-
 class Profile(models.Model):
     USER_TYPES = (
         ('STUDENT', 'Student'),
@@ -56,3 +55,10 @@ class Profile(models.Model):
     type = models.CharField(max_length=50, choices=USER_TYPES)
 
     dob = models.DateField()
+
+    def can_workon(self):
+        # Eg. complaint of type ELECTRICITY is handled by ELECTRICIAN
+        return {
+            'ELECTRICIAN': 'ELECTRICITY',
+            'CARPENTER': 'CARPENTER'
+        }.get(self.type)
