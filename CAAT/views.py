@@ -14,33 +14,11 @@ def front(request):
     return render (request,"front.html")
 
 
-# def login(request):
-#     if request.method =='POST':
-#         #import ipdb; ipdb.set_trace()
-#         rollNo = request.POST['rollNo']
-#         #rollNo = request.POST['rollNo']
-#         password = request.POST['password']
-#
-#         #import ipdb; ipdb.set_trace()
-#         user = auth.authenticate(username=rollNo,password=password)
-#
-#         if user is not None:
-#             auth.login(request, user)
-#             return redirect("complaints")
-#         else:
-#             messages.info(request,'invalid')
-#             return redirect("login")
-#
-#     else:
-#         return render(request,"login.html")
-
-
 def signUp(request):
     context = {}
     if request.method =='POST':
         print('inside post')
         first_name = request.POST['first_name']
-       # middle_name = request.POST['middle_name']
         last_name = request.POST['last_name']
         phoneNo = request.POST['phoneNo']
         email = request.POST['email']
@@ -70,7 +48,6 @@ def signUp(request):
                     password=password1,
                     email=email,
                     first_name=first_name,
-                    #middle_name=middle_name,
                     last_name=last_name
                 )
             user.save()
@@ -92,96 +69,14 @@ def list(request):
         desc = request.GET['desc']
         image = request.GET['image']
         user = request.user
-       # Complaints.objects.create(user=user,type= )
-
         complaint_type = request.POST['customer-type']
-        # Correction: 'customer-type' > 'complaint-type'
-        # Complaint.objects.create(user=user, type=complaint_type)
-
         complaints = Complaints.objects.filter(
             desc = desc,
             image = image,
             user = user,
 
         )
-        return render(request,'list.html')#,{'complaints': complaints})
-
-
-# def Electricity(request):
-#     if request.method =='POST':
-#         desc = request.POST['desc']
-#         image = request.POST['image']
-#         user = request.user
-#         complaint_type = request.POST['customer-type']
-#         Correction: 'customer-type' > 'complaint-type'
-#         Complaint.objects.create(user=user, type=Electricity)
-#         complaints = Complaints.objects.filter(
-#             desc = desc,
-#             image = image,
-#             user = user,
-#
-#         )
-#     return render (request,"Electricity.html")
-# def Plumber(request):
-#     if request.method =='POST':
-#         desc = request.POST['desc']
-#         image = request.POST['image']
-#         user = request.user
-#         complaint_type = request.POST['customer-type']
-#         Correction: 'customer-type' > 'complaint-type'
-#         Complaint.objects.create(user=user, type=Plumber)
-#         complaints = Complaints.objects.filter(
-#             desc = desc,
-#             image = image,
-#             user = user,
-#
-#         )
-#         return render (request,"Plumber.html")
-# def Air_conditioner(request):
-#     if request.method =='POST':
-#         desc = request.POST['desc']
-#         image = request.POST['image']
-#         user = request.user
-#         complaint_type = request.POST['customer-type']
-#         Correction: 'customer-type' > 'complaint-type'
-#         Complaint.objects.create(user=user, type=Air_conditioner)
-#         complaints = Complaints.objects.filter(
-#             desc = desc,
-#             image = image,
-#             user = user,
-#
-#         )
-#         return render (request,"Air_conditioner.html")
-# def Room_cleaning(request):
-#     if request.method =='POST':
-#         desc = request.POST['desc']
-#         image = request.POST['image']
-#         user = request.user
-#         complaint_type = request.POST['customer-type']
-#         Correction: 'customer-type' > 'complaint-type'
-#         Complaint.objects.create(user=user, type=Room_cleaning)
-#         complaints = Complaints.objects.filter(
-#             desc = desc,
-#             image = image,
-#             user = user,
-#
-#         )
-#         return render (request,"Room_cleaning.html")
-# def Carpanter(request):
-#     if request.method =='POST':
-#         desc = request.POST['desc']
-#         image = request.POST['image']
-#         user = request.user
-#         complaint_type = request.POST['customer-type']
-#         Correction: 'customer-type' > 'complaint-type'
-#         Complaint.objects.create(user=user, type=Carpanter)
-#         complaints = Complaints.objects.filter(
-#             desc = desc,
-#             image = image,
-#             user = user,
-#
-#         )
-#         return render (request,"Carpanter.html")
+        return render(request,'list.html')
 
 def logout(request):
     auth.logout(request)
@@ -248,9 +143,7 @@ class MyComplaints(LoginRequiredMixin, View):
             'count':count
         }
 
-<<<<<<< HEAD
         return render(request, 'list.html', context)
-=======
         return render(request, 'list.html', context)
 
 
@@ -285,4 +178,3 @@ class Home(LoginRequiredMixin, View):
 
 
 
->>>>>>> 8783df7ddd0719fc98c86d54004252a08dfb9c37
