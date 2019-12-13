@@ -223,7 +223,7 @@ class ComplaintListCreateView(LoginRequiredMixin, View):
             # Uploaded files are available via request.FILES
             image=request.FILES.get('complaint-image'),
             # Logged in user is available via request.user
-            user=User.objects.first() #request.user
+            user=request.user
         )
 
         print("Complaint successfully created. id: {}".format(new_complaint.id))
