@@ -13,9 +13,13 @@
 <div class="container">
         <div>
                 <div class="well">
-                        <div><a  href="/login/" class="underline">Log out</a>
+                    {% if user.is_authenticated %}
+                        <div><a  href="{% url 'logout' %}" class="underline">Log out</a>
                             
-                            <a  href="/login/" class="underline">My complaint</a></div>
+                            <a  href="{% url 'login' %}" class="underline">My complaint</a></div>
+                    {% else %}
+                    <div><a  href="{% url 'login' %}" class="underline">Login</a></div>
+                    {% endif %}
                     <h2 class="text-info">Complaint Anytime Anywhere</h2>
                 
                 </div>
@@ -30,8 +34,8 @@
       <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
             <div class="container text-center">
               <small>Copyright &copy; Build with &hearts;</small>
-              <a  href="/login/" class="underline"> Feedback</a>
-              <a  href="/login/" class="underline">About us</a>
+              <a  href="{% url 'feedback' %}" class="underline"> Feedback</a>
+              <a  href="{% url 'about-us' %}" class="underline">About us</a>
             </div>
           </footer>
 </footer>

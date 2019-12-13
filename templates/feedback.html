@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+        Feedback by logged in user
+{% else %}
+    Feedback by anonymous (logged out) user
+{% endif %}
+{% endblock %}

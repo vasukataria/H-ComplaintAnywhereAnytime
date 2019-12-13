@@ -1,4 +1,5 @@
 from django.urls import path, re_path
+from django.views.generic import TemplateView
 
 from . import views
 
@@ -31,7 +32,9 @@ url_patterns = [
     # GET /complaints/{id} - Get single complaint
     # PUT /complaints/{id} - Update single complaint
     # DELETE /complaints/{id} - Delete single complaint
-    re_path(r'^complaints/(?P<pk>\d+)/$', views.ComplaintsDetailView.as_view(), name='complaint-detail')
+    re_path(r'^complaints/(?P<pk>\d+)/$', views.ComplaintsDetailView.as_view(), name='complaint-detail'),
+    re_path(r'^feedback/$', TemplateView.as_view(template_name='feedback.html'), name='feedback'),
+    re_path(r'^aboutus/$', TemplateView.as_view(template_name='about-us.html'), name='about-us'),
 ]
 
 """
