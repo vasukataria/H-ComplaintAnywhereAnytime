@@ -16,7 +16,7 @@
                     {% if user.is_authenticated %}
                         <div><a  href="{% url 'logout' %}" class="underline">Log out</a>
                             
-                            <a  href="{% url 'login' %}" class="underline">My complaint</a></div>
+                            <a  href="{% url 'home' %}" class="underline">My complaint</a></div>
                     {% else %}
                     <div><a  href="{% url 'login' %}" class="underline">Login</a></div>
                     {% endif %}
