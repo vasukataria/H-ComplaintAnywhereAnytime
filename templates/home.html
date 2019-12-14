@@ -1,18 +1,67 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if user.is_authenticated %}
-    {% if user.profile.type == 'STUDENT' %}
-        <h2>My Complaints</h2>
-        <b>Create new complaint</b>
-        {% include "list.html" with complaints=complaints count=count  %}
+<!------ Include the above in your HEAD tag ---------->
+<style>
+        .custab{
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5% 0;
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+    }
+.custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+    }
+        </style>
+<div class="container">
+    <div>
+            {% if user.is_authenticated %}
+            {% if user.profile.type == 'STUDENT' %}
+                <legend>
+                    <h3 class="form-heading" style="padding-bottom:5px">My Complaints</h3>
+                </legend>
+
+                <a href="/complaints/new/" class="btn btn-primary btn-xs pull-right" style="margin-bottom: 10px;height: 31px;width: 200px;font-size: 15px;"><b>+</b> Create new complaint</a>
+
+            {% else %}
+                <legend>
+                    <h4 class="form-heading" style="padding-bottom:5px">{{user.profile.type}} TASK</h4>
+                </legend>
+                
+                
+            {% endif %}
+        {% else %}
+          <p>You are not logged in</p>
+          <a href="{% url 'login' %}">login</a>
+        {% endif %}
+    
+    {% if count > 0 %}
+        <table class="table table-striped custab">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Created by</th>
+                <th>Crated On</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        {% for complaint in complaints %}
+        <tr>
+            <td><a href="{% url 'complaint-detail' complaint.id %}">{{complaint.id}}</a></td>
+            <td>{{ complaint.type }}</td>
+            <td>{{ complaint.user.username }}</td>
+            <td>{{ complaint.created_at }}</td>
+            <td>{{ complaint.status }}</td>
+        </tr>
+        {% endfor %}
+        </table>
     {% else %}
-        <h2>Complaints to workon</h2>
-        <b>User type: {{user.profile.type}}</b>
-        {% include "list.html" with complaints=complaints count=count  %}
+        <b>No complaints yet!</b>
     {% endif %}
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-{% endif %}
+    </div>
+</div>
+
 {% endblock %}
