@@ -14,33 +14,11 @@ def front(request):
     return render (request,"front.html")
 
 
-# def login(request):
-#     if request.method =='POST':
-#         #import ipdb; ipdb.set_trace()
-#         rollNo = request.POST['rollNo']
-#         #rollNo = request.POST['rollNo']
-#         password = request.POST['password']
-#
-#         #import ipdb; ipdb.set_trace()
-#         user = auth.authenticate(username=rollNo,password=password)
-#
-#         if user is not None:
-#             auth.login(request, user)
-#             return redirect("complaints")
-#         else:
-#             messages.info(request,'invalid')
-#             return redirect("login")
-#
-#     else:
-#         return render(request,"login.html")
-
-
 def signUp(request):
     context = {}
     if request.method =='POST':
         print('inside post')
         first_name = request.POST['first_name']
-       # middle_name = request.POST['middle_name']
         last_name = request.POST['last_name']
         phoneNo = request.POST['phoneNo']
         email = request.POST['email']
@@ -52,7 +30,10 @@ def signUp(request):
         #gender = request.POST['gender']
         #gender = request.POST['gender']
         #gender = request.POST['gender']
-        # room
+        #hostel = request.POST['']
+        #floor  = request.Post['']
+        #room_number = request.Post['room_number']
+        #phone_number = request.Post['phone_number']
 
         #check pass
 
@@ -70,8 +51,12 @@ def signUp(request):
                     password=password1,
                     email=email,
                     first_name=first_name,
-                    #middle_name=middle_name,
-                    last_name=last_name
+                    last_name=last_name,
+                    #gender = gender,
+                    #hostel = Hostel,
+                    #floor = Floor,
+                    #room_number = Room number,
+                    
                 )
             user.save()
             Profile.objects.create(user=user, type='STUDENT',dob=bday)
@@ -92,96 +77,14 @@ def list(request):
         desc = request.GET['desc']
         image = request.GET['image']
         user = request.user
-       # Complaints.objects.create(user=user,type= )
-
         complaint_type = request.POST['customer-type']
-        # Correction: 'customer-type' > 'complaint-type'
-        # Complaint.objects.create(user=user, type=complaint_type)
-
         complaints = Complaints.objects.filter(
             desc = desc,
             image = image,
             user = user,
 
         )
-        return render(request,'list.html')#,{'complaints': complaints})
-
-
-# def Electricity(request):
-#     if request.method =='POST':
-#         desc = request.POST['desc']
-#         image = request.POST['image']
-#         user = request.user
-#         complaint_type = request.POST['customer-type']
-#         Correction: 'customer-type' > 'complaint-type'
-#         Complaint.objects.create(user=user, type=Electricity)
-#         complaints = Complaints.objects.filter(
-#             desc = desc,
-#             image = image,
-#             user = user,
-#
-#         )
-#     return render (request,"Electricity.html")
-# def Plumber(request):
-#     if request.method =='POST':
-#         desc = request.POST['desc']
-#         image = request.POST['image']
-#         user = request.user
-#         complaint_type = request.POST['customer-type']
-#         Correction: 'customer-type' > 'complaint-type'
-#         Complaint.objects.create(user=user, type=Plumber)
-#         complaints = Complaints.objects.filter(
-#             desc = desc,
-#             image = image,
-#             user = user,
-#
-#         )
-#         return render (request,"Plumber.html")
-# def Air_conditioner(request):
-#     if request.method =='POST':
-#         desc = request.POST['desc']
-#         image = request.POST['image']
-#         user = request.user
-#         complaint_type = request.POST['customer-type']
-#         Correction: 'customer-type' > 'complaint-type'
-#         Complaint.objects.create(user=user, type=Air_conditioner)
-#         complaints = Complaints.objects.filter(
-#             desc = desc,
-#             image = image,
-#             user = user,
-#
-#         )
-#         return render (request,"Air_conditioner.html")
-# def Room_cleaning(request):
-#     if request.method =='POST':
-#         desc = request.POST['desc']
-#         image = request.POST['image']
-#         user = request.user
-#         complaint_type = request.POST['customer-type']
-#         Correction: 'customer-type' > 'complaint-type'
-#         Complaint.objects.create(user=user, type=Room_cleaning)
-#         complaints = Complaints.objects.filter(
-#             desc = desc,
-#             image = image,
-#             user = user,
-#
-#         )
-#         return render (request,"Room_cleaning.html")
-# def Carpanter(request):
-#     if request.method =='POST':
-#         desc = request.POST['desc']
-#         image = request.POST['image']
-#         user = request.user
-#         complaint_type = request.POST['customer-type']
-#         Correction: 'customer-type' > 'complaint-type'
-#         Complaint.objects.create(user=user, type=Carpanter)
-#         complaints = Complaints.objects.filter(
-#             desc = desc,
-#             image = image,
-#             user = user,
-#
-#         )
-#         return render (request,"Carpanter.html")
+        return render(request,'list.html')
 
 def logout(request):
     auth.logout(request)
@@ -235,22 +138,31 @@ class ComplaintsDetailView(LoginRequiredMixin, View):
     def get(self, request, pk=None):
         print("Querying a single complaint with id {} from database".format(pk))
         # Query complaint from database. Raise 404 if complaint is not found.
-        complaint = get_object_or_404(Complaints, pk=pk)
+       # complaint = get_object_ogit commit -m "Resolved merge conflict by incorporating both suggestions."r_404(Complaints, pk=pk)
         return render(request, 'complaint_detail.html', context={'complaint': complaint})
 
 
-# class MyComplaints(LoginRequiredMixin, View):
-#     def get(self, request):
-#         complaints = Complaints.objects.filter(user=request.user).order_by('-created_at')
-#         count = Complaints.objects.count()
-#         context = {
-#             'complaints': complaints,
-#             'count':count
-#         }
+class MyComplaints(LoginRequiredMixin, View):
+    def get(self, request):
+        complaints = Complaints.objects.filter(user=request.user).order_by('-created_at')
+        count = Complaints.objects.count()
+        context = {
+            'complaints': complaints,
+            'count':count
+        }
 
-#         return render(request, 'list.html', context)
+        return render(request, 'list.html', context)
+        return render(request, 'list.html', context)
 
 
+class WorkerHome(LoginRequiredMixin, View):
+    def get(self, request):
+        complaints = Complaints.objects.filter(type=request.user).order_by('-created_at')
+        count = Complaints.objects.count()
+        context = {
+            'complaints': complaints,
+            'count':count
+        }
 class Home(LoginRequiredMixin, View):
     def get(self, request):
         if request.user.profile.type == 'STUDENT':

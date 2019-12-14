@@ -73,4 +73,35 @@
     </body>
     </html>
     
+
+    # def login(request):
+#     if request.method =='POST':
+#         #import ipdb; ipdb.set_trace()
+#         rollNo = request.POST['rollNo']
+#         #rollNo = request.POST['rollNo']
+#         password = request.POST['password']
+#
+#         #import ipdb; ipdb.set_trace()
+#         user = auth.authenticate(username=rollNo,password=password)
+#
+#         if user is not None:
+#             auth.login(request, user)
+#             return redirect("complaints")
+#         else:
+#             messages.info(request,'invalid')
+#             return redirect("login")
+#
+#     else:
+#         return render(request,"login.html")
+
+# class MyComplaints(LoginRequiredMixin, View):
+#     def get(self, request):
+#         complaints = Complaints.objects.filter(user=request.user).order_by('-created_at')
+#         count = Complaints.objects.count()
+#         context = {
+#             'complaints': complaints,
+#             'count':count
+#         }
+
+#         return render(request, 'list.html', context)
     
