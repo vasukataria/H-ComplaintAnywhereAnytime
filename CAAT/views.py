@@ -223,7 +223,7 @@ class ComplaintListCreateView(LoginRequiredMixin, View):
             # Uploaded files are available via request.FILES
             image=request.FILES.get('complaint-image'),
             # Logged in user is available via request.user
-            user=User.objects.first() #request.user
+            user=request.user
         )
 
         print("Complaint successfully created. id: {}".format(new_complaint.id))
@@ -239,28 +239,16 @@ class ComplaintsDetailView(LoginRequiredMixin, View):
         return render(request, 'complaint_detail.html', context={'complaint': complaint})
 
 
-class MyComplaints(LoginRequiredMixin, View):
-    def get(self, request):
-        complaints = Complaints.objects.filter(user=request.user).order_by('-created_at')
-        count = Complaints.objects.count()
-        context = {
-            'complaints': complaints,
-            'count':count
-        }
+# class MyComplaints(LoginRequiredMixin, View):
+#     def get(self, request):
+#         complaints = Complaints.objects.filter(user=request.user).order_by('-created_at')
+#         count = Complaints.objects.count()
+#         context = {
+#             'complaints': complaints,
+#             'count':count
+#         }
 
-        return render(request, 'list.html', context)
-
-
-class WorkerHome(LoginRequiredMixin, View):
-    def get(self, request):
-        complaints = Complaints.objects.filter(type=request.user).order_by('-created_at')
-        count = Complaints.objects.count()
-        context = {
-            'complaints': complaints,
-            'count':count
-        }
-
-        return render(request, 'worker-home.html', context)
+#         return render(request, 'list.html', context)
 
 
 class Home(LoginRequiredMixin, View):

@@ -14,8 +14,21 @@
         </style>
 <div class="container">
     <div>
-    <a href="/complaints/new/" class="btn btn-primary btn-xs pull-right" style="margin-bottom: 10px;height: 31px;width: 200px;font-size: 15px;"><b>+</b> Create new complaint</a>
+            {% if user.is_authenticated %}
+            {% if user.profile.type == 'STUDENT' %}
+                <h2>My Complaints</h2>
+                <a href="/complaints/new/" class="btn btn-primary btn-xs pull-right" style="margin-bottom: 10px;height: 31px;width: 200px;font-size: 15px;"><b>+</b> Create new complaint</a>
 
+            {% else %}
+                <h2>Complaints to workon</h2>
+                <b>User type: {{user.profile.type}}</b>
+                
+            {% endif %}
+        {% else %}
+          <p>You are not logged in</p>
+          <a href="{% url 'login' %}">login</a>
+        {% endif %}
+    
     {% if count > 0 %}
         <table class="table table-striped custab">
         <thead>
