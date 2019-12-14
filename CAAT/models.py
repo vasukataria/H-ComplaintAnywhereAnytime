@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 
 # Django Choices: https://docs.djangoproject.com/en/3.0/ref/models/fields/#choices
 
@@ -55,6 +56,16 @@ class Profile(models.Model):
     type = models.CharField(max_length=50, choices=USER_TYPES)
 
     dob = models.DateField()
+
+    #hostel = models.ForeignKey(Hostel, on_delete=models.models.CASCADE)
+    #floor = models.ForeignKey(Floor, on_delete=models.models.CASCADE)
+    #room_number= models.ImageField()
+    #gender=models.CharField(max_length=11,choices=TYPE_SELECT)
+    
+#class PhoneModel(models.Model):
+    #phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+919999999'. Up to 12 digits allowed.")
+    #phone_number = models.CharField(validators=[phone_regex], max_length=12, blank=True)
+
 
     def can_workon(self):
         # Eg. complaint of type ELECTRICITY is handled by ELECTRICIAN

@@ -30,7 +30,10 @@ def signUp(request):
         #gender = request.POST['gender']
         #gender = request.POST['gender']
         #gender = request.POST['gender']
-        # room
+        #hostel = request.POST['']
+        #floor  = request.Post['']
+        #room_number = request.Post['room_number']
+        #phone_number = request.Post['phone_number']
 
         #check pass
 
@@ -48,7 +51,12 @@ def signUp(request):
                     password=password1,
                     email=email,
                     first_name=first_name,
-                    last_name=last_name
+                    last_name=last_name,
+                    #gender = gender,
+                    #hostel = Hostel,
+                    #floor = Floor,
+                    #room_number = Room number,
+                    
                 )
             user.save()
             Profile.objects.create(user=user, type='STUDENT',dob=bday)
@@ -130,11 +138,10 @@ class ComplaintsDetailView(LoginRequiredMixin, View):
     def get(self, request, pk=None):
         print("Querying a single complaint with id {} from database".format(pk))
         # Query complaint from database. Raise 404 if complaint is not found.
-        complaint = get_object_or_404(Complaints, pk=pk)
+       # complaint = get_object_ogit commit -m "Resolved merge conflict by incorporating both suggestions."r_404(Complaints, pk=pk)
         return render(request, 'complaint_detail.html', context={'complaint': complaint})
 
 
-<<<<<<< HEAD
 class MyComplaints(LoginRequiredMixin, View):
     def get(self, request):
         complaints = Complaints.objects.filter(user=request.user).order_by('-created_at')
@@ -156,20 +163,6 @@ class WorkerHome(LoginRequiredMixin, View):
             'complaints': complaints,
             'count':count
         }
-=======
-# class MyComplaints(LoginRequiredMixin, View):
-#     def get(self, request):
-#         complaints = Complaints.objects.filter(user=request.user).order_by('-created_at')
-#         count = Complaints.objects.count()
-#         context = {
-#             'complaints': complaints,
-#             'count':count
-#         }
->>>>>>> bfbaaedbdaa67fe8312eff078a0b6a706ddfcf64
-
-#         return render(request, 'list.html', context)
-
-
 class Home(LoginRequiredMixin, View):
     def get(self, request):
         if request.user.profile.type == 'STUDENT':

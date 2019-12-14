@@ -94,5 +94,14 @@
 #     else:
 #         return render(request,"login.html")
 
+# class MyComplaints(LoginRequiredMixin, View):
+#     def get(self, request):
+#         complaints = Complaints.objects.filter(user=request.user).order_by('-created_at')
+#         count = Complaints.objects.count()
+#         context = {
+#             'complaints': complaints,
+#             'count':count
+#         }
 
+#         return render(request, 'list.html', context)
     
