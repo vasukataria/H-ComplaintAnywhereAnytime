@@ -1,15 +1,15 @@
 from django.core.mail import send_mail
 
 send_mail(
-    'Subject here',
-    'Here is the message.',
-    'from@example.com',
-    ['to@example.com'],
+    'Complaint',
+    '48 hours to go stll problem is not sorted.',
+    'complaintanywhereanytime@gmail.com',
+    ['vasukataria8@gmail.com'],
     fail_silently=False,
 )
 
 # To execute this file
-# python test_mail.py
+    #python test_mail.py
 
 # Make a cron job to run at 9 am everyday
 # $ crontab -e   # Opens the crontab editor

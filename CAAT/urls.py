@@ -19,19 +19,8 @@ url_patterns = [
     re_path('^$', views.front, name='front'),
     re_path(r'^signUp/$', views.signUp, name='signUp'),
     re_path(r'^home/$', views.Home.as_view(), name='home'),
-    # re_path(r'^login/$', views.login, name='login'),
-    # re_path(r'^logout/$', views.logout, name='logout'),
-
-    # GET /complaints/ - Get all complaints
-    # POST /complaints/ - Create new complaint
     re_path(r'^complaints/$', views.ComplaintListCreateView.as_view(), name='complaint-list'),
-
-    # Form to create new complaint
     re_path(r'^complaints/new/$', views.NewComplaint.as_view(), name='new-complaint'),
-
-    # GET /complaints/{id} - Get single complaint
-    # PUT /complaints/{id} - Update single complaint
-    # DELETE /complaints/{id} - Delete single complaint
     re_path(r'^complaints/(?P<pk>\d+)/$', views.ComplaintsDetailView.as_view(), name='complaint-detail'),
     re_path(r'^feedback/$', TemplateView.as_view(template_name='feedback.html'), name='feedback'),
     re_path(r'^aboutus/$', TemplateView.as_view(template_name='about-us.html'), name='about-us'),
