@@ -2,7 +2,12 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-        Feedback by logged in user
+        Feedback by logged in user <br><br>
+        <p> Tell us what you love about the app, or what we could be doing better.<p>
+        <p> If you have detailed feedback to share,good and bad,we want it all.just drop in an email<p>
+        <a href="mailto: complaintanywhereanytime@gmail.com?" target="_top">Send Mail</a>
+
+        
 {% else %}
     Feedback by anonymous (logged out) user
 {% endif %}

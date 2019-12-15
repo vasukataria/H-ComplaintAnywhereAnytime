@@ -29,10 +29,10 @@ def signUp(request):
         bday = request.POST['bday']
         #gender = request.POST['gender']
         #gender = request.POST['gender']
-        #gender = request.POST['gender']
-        #hostel = request.POST['']
-        #floor  = request.Post['']
-        #room_number = request.Post['room_number']
+        Gender = request.POST['Gender']
+        Hostel = request.POST['Hostel']
+        Floor  = request.Post['Floor']
+        Room_number = request.Post['Room_number']
         #phone_number = request.Post['phone_number']
 
         #check pass
@@ -52,14 +52,19 @@ def signUp(request):
                     email=email,
                     first_name=first_name,
                     last_name=last_name,
-                    #gender = gender,
-                    #hostel = Hostel,
-                    #floor = Floor,
-                    #room_number = Room number,
-                    
+                    Gender = Gender,
+                    Hostel = Hostel,
+                    Floor = Floor,
+                    Room_number = Room_number,
+                    #phone
+
                 )
             user.save()
             Profile.objects.create(user=user, type='STUDENT',dob=bday)
+            Profile.objects.create(user=user, type='STUDENT',Hostel=Hostel)
+            Profile.objects.create(user=user, type='STUDENT',Floor=Floor)
+            Profile.objects.create(user=user, type='STUDENT',Room_number=Room_number)
+            Profile.objects.create(user=user, type='STUDENT',Gender=Gender)
             print('user created')
             return redirect('login')
         else:
@@ -138,7 +143,7 @@ class ComplaintsDetailView(LoginRequiredMixin, View):
     def get(self, request, pk=None):
         print("Querying a single complaint with id {} from database".format(pk))
         # Query complaint from database. Raise 404 if complaint is not found.
-       # complaint = get_object_ogit commit -m "Resolved merge conflict by incorporating both suggestions."r_404(Complaints, pk=pk)
+        complaint = get_object_or_404(Complaints, pk=pk)
         return render(request, 'complaint_detail.html', context={'complaint': complaint})
 
 

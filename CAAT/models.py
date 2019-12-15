@@ -47,20 +47,40 @@ class Profile(models.Model):
     USER_TYPES = (
         ('STUDENT', 'Student'),
         ('ELECTRICIAN', 'Electrician'),
-        ('CARPENTER', 'Carpenter')
+        ('CARPENTER', 'Carpenter'),
+        ('PLUMBER', 'plumber'),
+        ('AIR_CONDITIONER','Air_conditioner'),
+        ('ROOM_CLEANING','Room_cleaning')
+        
     )
+    HOSTEL_TYPES = [
+        ('L', 'L')
+    ]
+    
+    FLOOR_TYPES = [
+        ('1','1'),
+        ('2','2'),
+        ('3','3')
+    ]
+
+    GENDER_TYPES = [
+        ('MALE','Male'),
+        ('FEMALE','Female'),
+        ('OTHER','Other')
+    ]
+    
 
     # Django OneToOne field: https://docs.djangoproject.com/en/3.0/ref/models/fields/#django.db.models.OneToOneField
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     type = models.CharField(max_length=50, choices=USER_TYPES)
 
-    dob = models.DateField()
+    dob = models.DateField(null=True)
 
-    #hostel = models.ForeignKey(Hostel, on_delete=models.models.CASCADE)
-    #floor = models.ForeignKey(Floor, on_delete=models.models.CASCADE)
-    #room_number= models.ImageField()
-    #gender=models.CharField(max_length=11,choices=TYPE_SELECT)
+    Hostel = models.CharField(max_length=10 ,choices=HOSTEL_TYPES ,null=True)
+    Floor = models.CharField(max_length=10 ,choices=FLOOR_TYPES ,null=True)
+    Room_number= models.IntegerField(null=True)
+    Gender=models.CharField(max_length=11, choices=GENDER_TYPES)
     
 #class PhoneModel(models.Model):
     #phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+919999999'. Up to 12 digits allowed.")
@@ -71,5 +91,9 @@ class Profile(models.Model):
         # Eg. complaint of type ELECTRICITY is handled by ELECTRICIAN
         return {
             'ELECTRICIAN': 'ELECTRICITY',
-            'CARPENTER': 'CARPENTER'
+            'CARPENTER': 'CARPENTER',
+            'PLUMBER' : 'PLUMBER',
+            'AIR_CONDITIONER':'AIR_CONDITIONER',
+            'ROOM_CLEANING' : 'ROOM_CLEANING'
+
         }.get(self.type)

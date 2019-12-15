@@ -15,12 +15,10 @@
                 <div class="well">
                     {% if user.is_authenticated %}
                         <div><a  href="{% url 'logout' %}" class="underline">Log out</a>
-                            
-                            <a  href="{% url 'home' %}" class="underline">My complaint</a></div>
                     {% else %}
                     <div><a  href="{% url 'login' %}" class="underline">Login</a></div>
                     {% endif %}
-                    <h2 class="text-info">Complaint Anytime Anywhere</h2>
+                    <a href="{%url 'home' %}" class="underline"><h2 class="well">Complaint Anytime Anywhere</h2></a>
                 
                 </div>
             </div>
