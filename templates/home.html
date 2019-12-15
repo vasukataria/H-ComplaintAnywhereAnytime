@@ -47,7 +47,7 @@
                 <th>Created by</th>
                 <th>Crated On</th>
                 <th>Status</th>
-                {% if user.profile.type == 'STUDENT' %}
+                {% if user.profile.type != 'STUDENT' %}
                 <th></th>
                 {% endif %}
             </tr>
@@ -59,9 +59,11 @@
             <td>{{ complaint.user.username }}</td>
             <td>{{ complaint.created_at }}</td>
             <td>{{ complaint.status }}</td>
-            {% if user.profile.type == 'STUDENT' %}
-             <td style="width:30px"><a href="/complaints/new/" class="btn btn-primary btn-xs pull-right"> Resolved</a></td>
-             {% endif %}
+             <td style="width:30px">
+                 {% if user.profile.type != 'STUDENT' and complaint.status != 'RESOLVED' %}
+                 <a href="{% url 'resolve-complaint' complaint.id %}" class="btn btn-primary btn-xs pull-right"> Resolve</a>
+                 {% endif %}
+             </td>
         </tr>
         {% endfor %}
         </table>

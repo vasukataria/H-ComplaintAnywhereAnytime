@@ -187,6 +187,17 @@ class Home(LoginRequiredMixin, View):
         return render(request, 'home.html', context)
 
 
+class ResolveComplaint(LoginRequiredMixin, View):
+    def get(self, request, pk=None):
+        if request.user.profile.type == 'STUDENT':
+            messages.error(request, "Students can not resolve a complaint!")
+        else:
+            complaint = get_object_or_404(Complaints, pk=pk)
+            complaint.status = 'RESOLVED'
+            complaint.save()
+
+        return render(request, 'complaint_detail.html', context={'complaint': complaint})
+
 
 def feedback_form(request):
     if request.method == 'POST':
