@@ -15,6 +15,7 @@
     transition: 0.5s;
     }
         </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="container">
     <div>
             {% if user.is_authenticated %}
@@ -46,6 +47,9 @@
                 <th>Created by</th>
                 <th>Crated On</th>
                 <th>Status</th>
+                {% if user.profile.type != 'STUDENT' %}
+                <th></th>
+                {% endif %}
             </tr>
         </thead>
         {% for complaint in complaints %}
@@ -55,6 +59,11 @@
             <td>{{ complaint.user.username }}</td>
             <td>{{ complaint.created_at }}</td>
             <td>{{ complaint.status }}</td>
+             <td style="width:30px">
+                 {% if user.profile.type != 'STUDENT' and complaint.status != 'RESOLVED' %}
+                 <a href="{% url 'resolve-complaint' complaint.id %}" class="btn btn-primary btn-xs pull-right"> Resolve</a>
+                 {% endif %}
+             </td>
         </tr>
         {% endfor %}
         </table>

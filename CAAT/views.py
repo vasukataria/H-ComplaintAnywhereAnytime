@@ -31,8 +31,8 @@ def signUp(request):
         #gender = request.POST['gender']
         Gender = request.POST['Gender']
         Hostel = request.POST['Hostel']
-        Floor  = request.Post['Floor']
-        Room_number = request.Post['Room_number']
+        Floor  = request.POST['Floor']
+        Room_number = request.POST['Room_number']
         phone_number = request.POST['phone_number']
 
         #check pass
@@ -51,21 +51,21 @@ def signUp(request):
                     password=password1,
                     email=email,
                     first_name=first_name,
-                    last_name=last_name,
+                    last_name=last_name
+                )
+                user.save()
+
+                Profile.objects.create(
+                    user=user,
+                    type='STUDENT',
+                    dob=bday,
                     Gender = Gender,
                     Hostel = Hostel,
                     Floor = Floor,
                     Room_number = Room_number,
-                    
-
+                    phone_number = phone_number
                 )
-            user.save()
-            Profile.objects.create(user=user, type='STUDENT',dob=bday)
-            Profile.objects.create(user=user, type='STUDENT',Hostel=Hostel)
-            Profile.objects.create(user=user, type='STUDENT',Floor=Floor)
-            Profile.objects.create(user=user, type='STUDENT',Room_number=Room_number)
-            Profile.objects.create(user=user, type='STUDENT',Gender=Gender)
-            Profile.objects.create(user=user, type='STUDENT',Gender=phone_number)
+                    
             print('user created')
             return redirect('login')
         else:
@@ -186,6 +186,17 @@ class Home(LoginRequiredMixin, View):
 
         return render(request, 'home.html', context)
 
+
+class ResolveComplaint(LoginRequiredMixin, View):
+    def get(self, request, pk=None):
+        if request.user.profile.type == 'STUDENT':
+            messages.error(request, "Students can not resolve a complaint!")
+        else:
+            complaint = get_object_or_404(Complaints, pk=pk)
+            complaint.status = 'RESOLVED'
+            complaint.save()
+
+        return render(request, 'complaint_detail.html', context={'complaint': complaint})
 
 
 def feedback_form(request):

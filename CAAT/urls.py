@@ -22,6 +22,7 @@ url_patterns = [
     re_path(r'^complaints/$', views.ComplaintListCreateView.as_view(), name='complaint-list'),
     re_path(r'^complaints/new/$', views.NewComplaint.as_view(), name='new-complaint'),
     re_path(r'^complaints/(?P<pk>\d+)/$', views.ComplaintsDetailView.as_view(), name='complaint-detail'),
+    re_path(r'^complaints/(?P<pk>\d+)/resolve$', views.ResolveComplaint.as_view(), name='resolve-complaint'),
     re_path(r'^feedback/$', TemplateView.as_view(template_name='feedback.html'), name='feedback'),
     re_path(r'^aboutus/$', TemplateView.as_view(template_name='about-us.html'), name='about-us'),
 ]
