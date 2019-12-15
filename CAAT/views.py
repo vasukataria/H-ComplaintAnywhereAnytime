@@ -20,7 +20,7 @@ def signUp(request):
         print('inside post')
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
-        phoneNo = request.POST['phoneNo']
+        #phoneNo = request.POST['phoneNo']
         email = request.POST['email']
         rollNo = request.POST['rollNo']
         password1 = request.POST['password1']
@@ -33,7 +33,7 @@ def signUp(request):
         Hostel = request.POST['Hostel']
         Floor  = request.Post['Floor']
         Room_number = request.Post['Room_number']
-        #phone_number = request.Post['phone_number']
+        phone_number = request.POST['phone_number']
 
         #check pass
 
@@ -56,7 +56,7 @@ def signUp(request):
                     Hostel = Hostel,
                     Floor = Floor,
                     Room_number = Room_number,
-                    #phone
+                    
 
                 )
             user.save()
@@ -65,6 +65,7 @@ def signUp(request):
             Profile.objects.create(user=user, type='STUDENT',Floor=Floor)
             Profile.objects.create(user=user, type='STUDENT',Room_number=Room_number)
             Profile.objects.create(user=user, type='STUDENT',Gender=Gender)
+            Profile.objects.create(user=user, type='STUDENT',Gender=phone_number)
             print('user created')
             return redirect('login')
         else:
@@ -187,3 +188,13 @@ class Home(LoginRequiredMixin, View):
 
 
 
+def feedback_form(request):
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return render(request,)
+    else:
+        form = FeedbackForm()
+    return render(request,)

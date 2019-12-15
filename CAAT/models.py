@@ -81,10 +81,8 @@ class Profile(models.Model):
     Floor = models.CharField(max_length=10 ,choices=FLOOR_TYPES ,null=True)
     Room_number= models.IntegerField(null=True)
     Gender=models.CharField(max_length=11, choices=GENDER_TYPES)
-    
-#class PhoneModel(models.Model):
-    #phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+919999999'. Up to 12 digits allowed.")
-    #phone_number = models.CharField(validators=[phone_regex], max_length=12, blank=True)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+919999999'. Up to 12 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=12, blank=True)
 
 
     def can_workon(self):
@@ -97,3 +95,18 @@ class Profile(models.Model):
             'ROOM_CLEANING' : 'ROOM_CLEANING'
 
         }.get(self.type)
+
+class Feedback(models.Model):
+    RATING_TYPES =[
+        ('EXCELLENT','Excellent'),
+        ('VERY-GOOD','Very-good'),
+        ('GOOD','GOOD'),
+        ('AVERAGE','Average'),
+        ('POOR','Poor')
+    ]
+
+    details = models.TextField()
+    date = models.DateField(auto_now_add=True)
+    Rating=models.CharField(max_length=11, choices=RATING_TYPES)
+ 
+
