@@ -12,13 +12,13 @@
 
 <div class="container">
         <div>
-                <div class="well">
+                <div class="well" style="height:130px">
                     {% if user.is_authenticated %}
                         <div><a  href="{% url 'logout' %}" class="underline">Log out</a>
                     {% else %}
                     <div><a  href="{% url 'login' %}" class="underline">Login</a></div>
                     {% endif %}
-                    <a href="{%url 'home' %}" class="underline"><h2 class="well">Complaint Anytime Anywhere</h2></a>
+                    <a href="{%url 'home' %}" class="underline" style="float:left"><h2>Complaint Anytime Anywhere</h2></a>
                 
                 </div>
             </div>

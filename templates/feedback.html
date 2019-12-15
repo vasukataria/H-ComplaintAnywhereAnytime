@@ -2,13 +2,25 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-        Feedback by logged in user <br><br>
+<div class="heading">
+        <legend >
+        <h4 class="form-heading" style="margin-bottom:20px" >Feedback</h4>
+    </legend>
+    </div>
+        FEEDBACK BY {% if user.profile.type == 'STUDENT' %}
+        STUDENT
+    {% else %}
+    {{user.profile.type}}
+        
+        
+    {% endif %} <br><br>
         <p> Tell us what you love about the app, or what we could be doing better.<p>
         <p> If you have detailed feedback to share,good and bad,we want it all.just drop in an email<p>
-        <a href="mailto: complaintanywhereanytime@gmail.com?" target="_top">Send Mail</a>
+        <a href="mailto: complaintanywhereanytime@gmail.com?" target="_top" class="btn btn-success" style="margin-top:30px">Send Mail</a>
 
         
 {% else %}
     Feedback by anonymous (logged out) user
 {% endif %}
+<br /><br />
 {% endblock %}
